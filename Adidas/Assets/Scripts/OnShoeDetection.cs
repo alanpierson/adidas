@@ -19,6 +19,9 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
     [SerializeField]
     GameObject mGameObjectExperience;
 
+    [SerializeField]
+    AudioSource mAudioSource;
+
     private bool mFirstTime = true;
 
     void Start()
@@ -61,8 +64,10 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
     IEnumerator FlickeringShoe()
     {
         mGameObjectShoe.SetActive(true);
+        mAudioSource.Play();
         yield return new WaitForSeconds(3);
         mGameObjectShoe.SetActive(false);
+        mAudioSource.Stop();
         mGameObjectExperience.SetActive(true);
 
     }

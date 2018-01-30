@@ -5,13 +5,13 @@ using Vuforia;
 
 public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
 {
-        private TrackableBehaviour mTrackableBehaviour;
+    private TrackableBehaviour trackableBehaviour;
 
     [SerializeField]
-    GameObject scanningObject;
+    GameObject scanningTextObject;
 
     [SerializeField]
-    GameObject detectedObject;
+    GameObject detectedTextObject;
 
     [SerializeField]
     GameObject holoShoe;
@@ -22,17 +22,14 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
     [SerializeField]
     AudioSource detectedAudioSource;
 
-    [SerializeField]
-    GameObject shoeContainer;
-
-    private bool mFirstTime = true;
+    private bool firstTime = true;
 
     void Start()
         {
-            mTrackableBehaviour = GetComponent<TrackableBehaviour>();
-            if (mTrackableBehaviour)
+            trackableBehaviour = GetComponent<TrackableBehaviour>();
+            if (trackableBehaviour)
             {
-                mTrackableBehaviour.RegisterTrackableEventHandler(this);
+                trackableBehaviour.RegisterTrackableEventHandler(this);
             }
         }
 
@@ -44,24 +41,21 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
                 newStatus == TrackableBehaviour.Status.TRACKED)
             {
             //When target is found
-            if (mFirstTime)
+            if (firstTime)
             {
-                mFirstTime = false;
-                scanningObject.SetActive(false);
-                transform.parent = null;
-                shoeContainer.SetActive(false);
+                firstTime = false;
+                scanningTextObject.SetActive(false);
                 StartCoroutine(Detected());
             }
-          }
- 
+            }
         }
 
 
     IEnumerator Detected()
     {
-        detectedObject.SetActive(true);
+        detectedTextObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        detectedObject.SetActive(false);
+        detectedTextObject.SetActive(false);
         StartCoroutine(FlickeringShoe());
 
     }
@@ -74,6 +68,6 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
         holoShoe.SetActive(false);
         detectedAudioSource.Stop();
         experienceContainer.SetActive(true);
+    }
 
-    }
-    }
+}

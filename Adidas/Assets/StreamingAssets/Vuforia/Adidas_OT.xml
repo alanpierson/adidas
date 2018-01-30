@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="QCAR_Dataset_config.xsd">
   <Tracking>
-    <ObjectTarget name="shoe85v3" />
-    <ObjectTarget name="Shoe85v2" />
-    <ObjectTarget name="Left_8-5_Test" />
+    <ObjectTarget name="w150L_test" />
+    <ObjectTarget name="w85R_test" />
+    <ObjectTarget name="w85L_test" />
   </Tracking>
 </QCARConfig>

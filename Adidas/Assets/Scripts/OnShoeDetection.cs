@@ -8,19 +8,22 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
         private TrackableBehaviour mTrackableBehaviour;
 
     [SerializeField]
-    GameObject mGameObjectScan;
+    GameObject scanningObject;
 
     [SerializeField]
-    GameObject mGameObjectDetect;
+    GameObject detectedObject;
 
     [SerializeField]
-    GameObject mGameObjectShoe;
+    GameObject holoShoe;
 
     [SerializeField]
-    GameObject mGameObjectExperience;
+    GameObject experienceContainer;
 
     [SerializeField]
-    AudioSource mAudioSource;
+    AudioSource detectedAudioSource;
+
+    [SerializeField]
+    GameObject shoeContainer;
 
     private bool mFirstTime = true;
 
@@ -44,7 +47,9 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
             if (mFirstTime)
             {
                 mFirstTime = false;
-                mGameObjectScan.SetActive(false);
+                scanningObject.SetActive(false);
+                transform.parent = null;
+                shoeContainer.SetActive(false);
                 StartCoroutine(Detected());
             }
           }
@@ -54,21 +59,21 @@ public class OnShoeDetection : MonoBehaviour, ITrackableEventHandler
 
     IEnumerator Detected()
     {
-        mGameObjectDetect.SetActive(true);
+        detectedObject.SetActive(true);
         yield return new WaitForSeconds(2);
-        mGameObjectDetect.SetActive(false);
+        detectedObject.SetActive(false);
         StartCoroutine(FlickeringShoe());
 
     }
 
     IEnumerator FlickeringShoe()
     {
-        mGameObjectShoe.SetActive(true);
-        mAudioSource.Play();
+        holoShoe.SetActive(true);
+        detectedAudioSource.Play();
         yield return new WaitForSeconds(3);
-        mGameObjectShoe.SetActive(false);
-        mAudioSource.Stop();
-        mGameObjectExperience.SetActive(true);
+        holoShoe.SetActive(false);
+        detectedAudioSource.Stop();
+        experienceContainer.SetActive(true);
 
     }
     }
